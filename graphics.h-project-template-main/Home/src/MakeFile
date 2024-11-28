@@ -1,0 +1,27 @@
+# Compilador y flags
+CXX = g++
+CXXFLAGS = -g -Wall
+LDFLAGS = -lbgi -lgdi32 -lcomdlg32 -luuid -loleaut32 -lole32
+
+# Archivos fuente
+SRCS = main.cpp ArbolSplay.cpp Nodo.cpp validar.cpp
+
+# Archivo objeto
+OBJS = $(SRCS:.cpp=.o)
+
+# Ejecutable
+EXEC = ../build/main.exe
+
+# Regla para compilar el ejecutable
+all: $(EXEC)
+
+$(EXEC): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJS) $(LDFLAGS)
+
+# Regla para compilar los archivos objeto
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Regla para limpiar los archivos compilados
+clean:
+	rm -f $(OBJS) $(EXEC)
